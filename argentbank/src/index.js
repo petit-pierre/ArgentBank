@@ -1,13 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./pages/Home";
+import SignIn from "./pages/Sign-in";
+import User from "./pages/User";
+import Error404 from "./pages/404";
+import Footer from "./components/Footer";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import reportWebVitals from "./reportWebVitals";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/User/:userNumber" element={<User />} />
+        <Route path="/Sign-in" element={<SignIn />} />
+        <Route path="*" element={<Error404 />} />
+      </Routes>
+      <Footer />
+    </Router>
   </React.StrictMode>
 );
 

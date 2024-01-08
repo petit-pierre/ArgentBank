@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import rootReducer from "./reducers";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import SignIn from "./pages/Sign-in";
@@ -10,19 +13,26 @@ import Footer from "./components/Footer";
 
 import reportWebVitals from "./reportWebVitals";
 
+const store = configureStore({
+  reducer: rootReducer,
+  devTools: true,
+});
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/User/:userNumber" element={<User />} />
-        <Route path="/Sign-in" element={<SignIn />} />
-        <Route path="*" element={<Error404 />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/User/:userId" element={<User />} />
+          <Route path="/Sign-in" element={<SignIn />} />
+          <Route path="*" element={<Error404 />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </Provider>
   </React.StrictMode>
 );
 

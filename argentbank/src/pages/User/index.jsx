@@ -1,6 +1,6 @@
 function User() {
   return (
-    <div className="home">
+    <div>
       <p>user</p>
     </div>
   );

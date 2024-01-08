@@ -1,12 +1,14 @@
 import { useRef, useState } from "react";
 import { setToken } from "../../actions/logInAction";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const name = useRef();
   const pass = useRef();
   const dispatch = useDispatch();
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   const submit = async (e) => {
     e.preventDefault();
@@ -32,13 +34,13 @@ function SignIn() {
       body: JSON.stringify(postData),
     });
     let result = await post.json();
-    if (result.body.token === null) {
+
+    if (result.message === "Error: User not found!") {
       setError(true);
     } else {
-      console.log(result.body.token);
-
       dispatch(setToken(result.body.token));
-      //  document.location.href = "./index.html";
+      console.log(result.body.token);
+      navigate("/User/" + postData.email);
     }
   }
 
@@ -62,7 +64,6 @@ function SignIn() {
           </div>
           <button className="sign-in-button">Sign In</button>
           {error && <p className="error">error</p>}
-          <p className="error"></p>
         </form>
       </section>
     </main>

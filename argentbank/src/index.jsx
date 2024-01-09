@@ -10,6 +10,7 @@ import SignIn from "./pages/Sign-in";
 import User from "./pages/User";
 import Error404 from "./pages/404";
 import Footer from "./components/Footer";
+import "./main.css";
 
 import reportWebVitals from "./reportWebVitals";
 

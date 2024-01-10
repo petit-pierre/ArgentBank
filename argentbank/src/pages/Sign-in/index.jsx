@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { setToken } from "../../actions/logInAction";
+import { setToken, setUser } from "../../actions/logInAction";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -39,7 +39,7 @@ function SignIn() {
       setError(true);
     } else {
       dispatch(setToken(result.body.token));
-      console.log(result.body.token);
+      dispatch(setUser(postData.email));
       navigate("/User/" + postData.email);
     }
   }

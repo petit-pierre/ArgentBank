@@ -1,5 +1,5 @@
 export const SET_TOKEN = "SET_TOKEN";
-//export const PUT_TOKEN = "PUT_TOKEN";
+export const SET_USER = "SET_USER";
 
 export const setToken = (token) => {
   return (dispatch) => {
@@ -10,11 +10,11 @@ export const setToken = (token) => {
   };
 };
 
-/*export const putToken = (token) => {
+export const setUser = (user) => {
   return (dispatch) => {
     dispatch({
-      type: PUT_TOKEN,
-      payload: { token },
+      type: SET_USER,
+      payload: { user },
     });
   };
-};*/
+};

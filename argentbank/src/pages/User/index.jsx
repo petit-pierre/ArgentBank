@@ -1,8 +1,11 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../actions/logInAction";
 
 function User() {
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const user = useSelector((state) => state.user);
   const [edit, setEdit] = useState(false);
@@ -25,7 +28,7 @@ function User() {
   }
 
   async function putName(postData) {
-    const post = await fetch("http://localhost:3001/api/V1/user/profile", {
+    await fetch("http://localhost:3001/api/V1/user/profile", {
       method: "PUT",
       headers: {
         Accept: "application/json",
@@ -34,41 +37,10 @@ function User() {
       },
       body: JSON.stringify(postData),
     });
-    let result = await post.json();
-    console.log(result);
 
-    /*if (result.message === "Error: User not found!") {
-      setError(true);
-    } else {
-      dispatch(setToken(result.body.token));
-      dispatch(setUser(postData.email));
-      navigate("/User/" + postData.email);
-    }*/
+    dispatch(setUser(postData.userName));
+    userChange();
   }
-
-  async function test() {
-    const post = await fetch("http://localhost:3001/api/V1/user/profile", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        Authorization: "Bearer " + token,
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      //body: JSON.stringify(),
-    });
-    let result = await post.json();
-    console.log(result);
-
-    /*if (result.message === "Error: User not found!") {
-      setError(true);
-    } else {
-      dispatch(setToken(result.body.token));
-      dispatch(setUser(postData.email));
-      navigate("/User/" + postData.email);
-    }*/
-  }
-
-  test();
 
   return (
     <main className="main bg-dark">

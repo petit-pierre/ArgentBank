@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { setToken, setUser } from "../../actions/logInAction";
+import { setEmail, setToken, setUser, setId } from "../../actions/logInAction";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -39,9 +39,24 @@ function SignIn() {
       setError(true);
     } else {
       dispatch(setToken(result.body.token));
-      dispatch(setUser(postData.email));
-      navigate("/User/" + postData.email);
+      dispatch(setEmail(postData.email));
+      getProfile(result);
     }
+  }
+
+  async function getProfile(result) {
+    const post = await fetch("http://localhost:3001/api/V1/user/profile", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + result.body.token,
+        "Content-Type": "application/json;charset=utf-8",
+      },
+    });
+    let userResult = await post.json();
+    dispatch(setUser(userResult.body.userName));
+    dispatch(setId(userResult.body.id));
+    navigate("/User/" + userResult.body.id);
   }
 
   return (

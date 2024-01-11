@@ -1,6 +1,6 @@
 import Logo from "../../assets/argentBankLogo.png";
 import { NavLink } from "react-router-dom";
-import { setToken, setUser } from "../../actions/logInAction";
+import { setToken, setUser, setId, setEmail } from "../../actions/logInAction";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -10,9 +10,33 @@ function Header() {
   const user = useSelector((state) => state.user);
   const userAdress = "User/" + user;
   const signOut = () => {
+    localStorage.clear();
     dispatch(setToken(null));
     dispatch(setUser(null));
+    dispatch(setId(null));
+    dispatch(setEmail(null));
   };
+  const serialisedState = localStorage.getItem("persistantState");
+  console.log("valeure" + serialisedState);
+  if (serialisedState !== null) {
+    dispatch(setToken(serialisedState));
+    getProfile(serialisedState);
+  }
+
+  async function getProfile(serialisedState) {
+    const post = await fetch("http://localhost:3001/api/V1/user/profile", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + serialisedState,
+        "Content-Type": "application/json;charset=utf-8",
+      },
+    });
+    let userResult = await post.json();
+    dispatch(setUser(userResult.body.userName));
+    dispatch(setId(userResult.body.id));
+    dispatch(setEmail(userResult.body.email));
+  }
 
   return (
     <nav className="main-nav">

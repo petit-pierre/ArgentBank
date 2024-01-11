@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom";
 function SignIn() {
   const name = useRef();
   const pass = useRef();
+  const remember = useRef();
   const dispatch = useDispatch();
   const [error, setError] = useState(false);
+  const [sendingError, setSendingError] = useState(false);
   const navigate = useNavigate();
   const [inputNameValue, setInputNameValue] = useState("");
   const [inputPassValue, setInputPassValue] = useState("");
@@ -47,6 +49,11 @@ function SignIn() {
     }
   };
 
+  function setStorage(token) {
+    console.log(token);
+    localStorage.setItem("persistantState", token);
+  }
+
   async function post(postData) {
     const post = await fetch("http://localhost:3001/api/V1/user/login", {
       method: "POST",
@@ -59,8 +66,11 @@ function SignIn() {
     let result = await post.json();
 
     if (result.message !== "User successfully logged in") {
-      setError(true);
+      setSendingError(true);
     } else {
+      if (remember.current.checked === true) {
+        setStorage(result.body.token);
+      }
       dispatch(setToken(result.body.token));
       dispatch(setEmail(postData.email));
       getProfile(result);
@@ -107,13 +117,14 @@ function SignIn() {
             />
           </div>
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" />
+            <input type="checkbox" id="remember-me" ref={remember} />
             <label htmlFor="remember-me">Remember me</label>
           </div>
           <button className="sign-in-button">Sign In</button>
           {error && (
             <p className="error">Invalid email format or empty password</p>
           )}
+          {sendingError && <p className="error">Invalid email or password</p>}
         </form>
       </section>
     </main>

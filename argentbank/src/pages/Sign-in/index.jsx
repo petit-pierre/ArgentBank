@@ -9,6 +9,29 @@ function SignIn() {
   const dispatch = useDispatch();
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const [inputNameValue, setInputNameValue] = useState("");
+  const [inputPassValue, setInputPassValue] = useState("");
+
+  const formNameError = (e) => {
+    setInputNameValue(e.target.value);
+    const emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
+    console.log(inputNameValue);
+    if (emailRegExp.test(inputNameValue)) {
+      setError(false);
+    } else {
+      setError(true);
+    }
+  };
+
+  const formPassError = (e) => {
+    setInputPassValue(e.target.value);
+    console.log(inputPassValue);
+    if (inputPassValue !== "") {
+      setError(false);
+    } else {
+      setError(true);
+    }
+  };
 
   const submit = async (e) => {
     e.preventDefault();
@@ -35,7 +58,7 @@ function SignIn() {
     });
     let result = await post.json();
 
-    if (result.message === "Error: User not found!") {
+    if (result.message !== "User successfully logged in") {
       setError(true);
     } else {
       dispatch(setToken(result.body.token));
@@ -67,18 +90,30 @@ function SignIn() {
         <form onSubmit={(e) => submit(e)}>
           <div className="input-wrapper">
             <label htmlFor="username">Username</label>
-            <input ref={name} type="text" id="username" />
+            <input
+              ref={name}
+              type="text"
+              id="username"
+              onChange={(e) => formNameError(e)}
+            />
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
-            <input ref={pass} type="password" id="password" />
+            <input
+              ref={pass}
+              type="password"
+              id="password"
+              onChange={(e) => formPassError(e)}
+            />
           </div>
           <div className="input-remember">
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
           <button className="sign-in-button">Sign In</button>
-          {error && <p className="error">error</p>}
+          {error && (
+            <p className="error">Invalid email format or empty password</p>
+          )}
         </form>
       </section>
     </main>

@@ -17,8 +17,8 @@ function SignIn() {
   const formNameError = (e) => {
     setInputNameValue(e.target.value);
     const emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
-    console.log(inputNameValue);
-    if (emailRegExp.test(inputNameValue)) {
+    console.log(e.target.value);
+    if (emailRegExp.test(e.target.value)) {
       setError(false);
     } else {
       setError(true);
@@ -27,8 +27,8 @@ function SignIn() {
 
   const formPassError = (e) => {
     setInputPassValue(e.target.value);
-    console.log(inputPassValue);
-    if (inputPassValue !== "") {
+    console.log(e.target.value);
+    if (e.target.value !== "") {
       setError(false);
     } else {
       setError(true);
@@ -104,7 +104,7 @@ function SignIn() {
               ref={name}
               type="text"
               id="username"
-              onChange={(e) => formNameError(e)}
+              onChange={formNameError}
             />
           </div>
           <div className="input-wrapper">
@@ -113,7 +113,7 @@ function SignIn() {
               ref={pass}
               type="password"
               id="password"
-              onChange={(e) => formPassError(e)}
+              onChange={formPassError}
             />
           </div>
           <div className="input-remember">

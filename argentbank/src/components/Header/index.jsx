@@ -1,25 +1,26 @@
 import Logo from "../../assets/argentBankLogo.png";
 import { NavLink } from "react-router-dom";
-import { setToken, setUser, setId, setEmail } from "../../actions/logInAction";
+//import { setToken, setUser, setId, setEmail } from "../../actions/logInAction";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+//import { headerSlice } from "./indexSlice";
+import { userSlice } from "../../pages/Sign-in/indexSlice";
 
 function Header() {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.token);
-  const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.user.token);
+  const user = useSelector((state) => state.user.user);
   const userAdress = "User/" + user;
   const signOut = () => {
     localStorage.clear();
-    dispatch(setToken(null));
-    dispatch(setUser(null));
-    dispatch(setId(null));
-    dispatch(setEmail(null));
+    dispatch(userSlice.actions.setToken(null));
+    dispatch(userSlice.actions.setUser(null));
+    dispatch(userSlice.actions.setId(null));
+    dispatch(userSlice.actions.setEmail(null));
   };
   const serialisedState = localStorage.getItem("persistantState");
-  console.log("valeure" + serialisedState);
   if (serialisedState !== null) {
-    dispatch(setToken(serialisedState));
+    dispatch(userSlice.actions.setToken(serialisedState));
     getProfile(serialisedState);
   }
 
@@ -33,9 +34,9 @@ function Header() {
       },
     });
     let userResult = await post.json();
-    dispatch(setUser(userResult.body.userName));
-    dispatch(setId(userResult.body.id));
-    dispatch(setEmail(userResult.body.email));
+    dispatch(userSlice.actions.setUser(userResult.body.userName));
+    dispatch(userSlice.actions.setId(userResult.body.id));
+    dispatch(userSlice.actions.setEmail(userResult.body.email));
   }
 
   return (

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import { setEmail, setToken, setUser, setId } from "../../actions/logInAction";
+//import { setEmail, setToken, setUser, setId } from "../../actions/logInAction";
+import { userSlice } from "./indexSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +14,7 @@ function SignIn() {
   const navigate = useNavigate();
   const [inputNameValue, setInputNameValue] = useState("");
   const [inputPassValue, setInputPassValue] = useState("");
+  //const token = useSelector((state) => state.token);
 
   const formNameError = (e) => {
     setInputNameValue(e.target.value);
@@ -71,8 +73,8 @@ function SignIn() {
       if (remember.current.checked === true) {
         setStorage(result.body.token);
       }
-      dispatch(setToken(result.body.token));
-      dispatch(setEmail(postData.email));
+      dispatch(userSlice.actions.setToken(result.body.token));
+      dispatch(userSlice.actions.setEmail(postData.email));
       getProfile(result);
     }
   }
@@ -87,8 +89,8 @@ function SignIn() {
       },
     });
     let userResult = await post.json();
-    dispatch(setUser(userResult.body.userName));
-    dispatch(setId(userResult.body.id));
+    dispatch(userSlice.actions.setUser(userResult.body.userName));
+    dispatch(userSlice.actions.setId(userResult.body.id));
     navigate("/User/" + userResult.body.id);
   }
 

@@ -2,12 +2,14 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../actions/logInAction";
+//import { userSlice } from "./indexSlice";
+import { userSlice } from "../Sign-in/indexSlice";
 
 function User() {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.token);
-  const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.user.token);
+  const user = useSelector((state) => state.user.user);
+  console.log(user);
   const [edit, setEdit] = useState(false);
   const userName = useRef();
 
@@ -37,8 +39,7 @@ function User() {
       },
       body: JSON.stringify(postData),
     });
-
-    dispatch(setUser(postData.userName));
+    dispatch(userSlice.actions.setUser(postData.userName));
     userChange();
   }
 

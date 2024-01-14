@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./reducers";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+//import rootReducer from "./reducers";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import SignIn from "./pages/Sign-in";
@@ -11,11 +11,20 @@ import User from "./pages/User";
 import Error404 from "./pages/404";
 import Footer from "./components/Footer";
 import "./main.css";
+//import { userSlice } from "./pages/User/indexSlice";
+import { userSlice } from "./pages/Sign-in/indexSlice";
+//import { headerSlice } from "./components/Header/indexSlice";
 
 import reportWebVitals from "./reportWebVitals";
 
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: combineReducers({
+    user: userSlice.reducer,
+    //setToken: headerSlice.reducer,
+    //setToken: userSlice.reducer,
+    //   setId: signInSlice.reducer,
+  }),
+
   devTools: true,
 });
 

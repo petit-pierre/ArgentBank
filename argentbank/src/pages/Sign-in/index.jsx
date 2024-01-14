@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 //import { setEmail, setToken, setUser, setId } from "../../actions/logInAction";
-import { userSlice } from "./indexSlice";
+import { userSlice } from "../../indexSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -91,6 +91,8 @@ function SignIn() {
     let userResult = await post.json();
     dispatch(userSlice.actions.setUser(userResult.body.userName));
     dispatch(userSlice.actions.setId(userResult.body.id));
+    dispatch(userSlice.actions.setFirstName(userResult.body.firstName));
+    dispatch(userSlice.actions.setLastName(userResult.body.lastName));
     navigate("/User/" + userResult.body.id);
   }
 
@@ -101,7 +103,7 @@ function SignIn() {
         <h1>Sign In</h1>
         <form onSubmit={(e) => submit(e)}>
           <div className="input-wrapper">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">E-mail</label>
             <input
               ref={name}
               type="text"

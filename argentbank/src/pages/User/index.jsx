@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 //import { userSlice } from "./indexSlice";
-import { userSlice } from "../Sign-in/indexSlice";
+import { userSlice } from "../../indexSlice";
 
 function User() {
   const dispatch = useDispatch();

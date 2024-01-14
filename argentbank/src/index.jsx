@@ -12,7 +12,7 @@ import Error404 from "./pages/404";
 import Footer from "./components/Footer";
 import "./main.css";
 //import { userSlice } from "./pages/User/indexSlice";
-import { userSlice } from "./pages/Sign-in/indexSlice";
+import { userSlice } from "./indexSlice";
 //import { headerSlice } from "./components/Header/indexSlice";
 
 import reportWebVitals from "./reportWebVitals";

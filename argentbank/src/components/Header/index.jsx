@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 //import { headerSlice } from "./indexSlice";
-import { userSlice } from "../../pages/Sign-in/indexSlice";
+import { userSlice } from "../../indexSlice";
 
 function Header() {
   const dispatch = useDispatch();
@@ -17,6 +17,8 @@ function Header() {
     dispatch(userSlice.actions.setUser(null));
     dispatch(userSlice.actions.setId(null));
     dispatch(userSlice.actions.setEmail(null));
+    dispatch(userSlice.actions.setFirstName(null));
+    dispatch(userSlice.actions.setLastName(null));
   };
   const serialisedState = localStorage.getItem("persistantState");
   if (serialisedState !== null) {
@@ -37,6 +39,8 @@ function Header() {
     dispatch(userSlice.actions.setUser(userResult.body.userName));
     dispatch(userSlice.actions.setId(userResult.body.id));
     dispatch(userSlice.actions.setEmail(userResult.body.email));
+    dispatch(userSlice.actions.setFirstName(userResult.body.firstName));
+    dispatch(userSlice.actions.setLastName(userResult.body.lastName));
   }
 
   return (

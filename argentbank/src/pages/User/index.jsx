@@ -3,11 +3,14 @@ import { Navigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { userSlice } from "../../userSlice";
+import "./user.css";
 
 function User() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
+  const firstName = useSelector((state) => state.user.firstName);
+  const lastName = useSelector((state) => state.user.lastName);
   const [edit, setEdit] = useState(false);
   const userName = useRef();
 
@@ -44,35 +47,72 @@ function User() {
   return (
     <main className="main bg-dark">
       <div className="header">
-        <h1>
-          Welcome back
-          <br />
-          {user}!
-        </h1>
-
         {edit === true ? (
+          <p></p>
+        ) : (
           <div>
+            <h1>
+              Welcome back
+              <br />
+              {user}!
+            </h1>
             <button className="edit-button" onClick={userChange}>
               Edit Name
             </button>
             <br></br>
             <br></br>
+          </div>
+        )}
+
+        {edit === true ? (
+          <div>
             <form>
-              <label htmlFor="username">Type new username :</label>
+              <h1>Edit user info</h1>
+              <div className="edit">
+                <p className="text">User name : </p>
+                <input
+                  className="inputBox"
+                  ref={userName}
+                  type="text"
+                  id="username"
+                />
+              </div>{" "}
               <br></br>
+              <div className="edit">
+                <p className="text">First name : </p>
+                <input
+                  className="inputBox"
+                  disabled
+                  value={firstName}
+                  type="text"
+                  id="username"
+                />
+              </div>{" "}
               <br></br>
-              <input ref={userName} type="text" id="username" />
+              <div className="edit">
+                <p className="text">Last name : </p>
+                <input
+                  className="inputBox"
+                  disabled
+                  value={lastName}
+                  type="text"
+                  id="username"
+                />
+              </div>{" "}
               <br></br>
-              <br></br>
-              <button className="edit-button" onClick={(evt) => saveName(evt)}>
-                Save new username
+              <button
+                className="edit-button nameButton"
+                onClick={(evt) => saveName(evt)}
+              >
+                Save
+              </button>
+              <button className="edit-button nameButton" onClick={userChange}>
+                Cancel
               </button>
             </form>
           </div>
         ) : (
-          <button className="edit-button" onClick={userChange}>
-            Edit Name
-          </button>
+          <p></p>
         )}
       </div>
       <h2 className="sr-only">Accounts</h2>

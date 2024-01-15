@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
-//import { setEmail, setToken, setUser, setId } from "../../actions/logInAction";
-import { userSlice } from "../../indexSlice";
+import { userSlice } from "../../userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -14,12 +13,10 @@ function SignIn() {
   const navigate = useNavigate();
   const [inputNameValue, setInputNameValue] = useState("");
   const [inputPassValue, setInputPassValue] = useState("");
-  //const token = useSelector((state) => state.token);
 
   const formNameError = (e) => {
     setInputNameValue(e.target.value);
     const emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
-    console.log(e.target.value);
     if (emailRegExp.test(e.target.value)) {
       setError(false);
     } else {
@@ -29,7 +26,6 @@ function SignIn() {
 
   const formPassError = (e) => {
     setInputPassValue(e.target.value);
-    console.log(e.target.value);
     if (e.target.value !== "") {
       setError(false);
     } else {
@@ -52,7 +48,6 @@ function SignIn() {
   };
 
   function setStorage(token) {
-    console.log(token);
     localStorage.setItem("persistantState", token);
   }
 

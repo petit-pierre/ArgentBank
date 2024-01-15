@@ -2,14 +2,12 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
-//import { userSlice } from "./indexSlice";
-import { userSlice } from "../../indexSlice";
+import { userSlice } from "../../userSlice";
 
 function User() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
-  console.log(user);
   const [edit, setEdit] = useState(false);
   const userName = useRef();
 

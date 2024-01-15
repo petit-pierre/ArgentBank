@@ -1,10 +1,8 @@
 import Logo from "../../assets/argentBankLogo.png";
 import { NavLink } from "react-router-dom";
-//import { setToken, setUser, setId, setEmail } from "../../actions/logInAction";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-//import { headerSlice } from "./indexSlice";
-import { userSlice } from "../../indexSlice";
+import { userSlice } from "../../userSlice";
 
 function Header() {
   const dispatch = useDispatch();

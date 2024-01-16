@@ -12,12 +12,15 @@ import Footer from "./components/Footer";
 import "./main.css";
 import { userSlice } from "./userSlice";
 import reportWebVitals from "./reportWebVitals";
+import { api } from "./components/UserApi";
 
 const store = configureStore({
   reducer: combineReducers({
     user: userSlice.reducer,
+    [api.reducerPath]: api.reducer,
   }),
-
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(api.middleware),
   devTools: true,
 });
 

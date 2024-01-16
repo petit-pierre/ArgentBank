@@ -2,8 +2,10 @@ import { useRef, useState } from "react";
 import { userSlice } from "../../userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+//import { useGetUserQuery } from "../../components/UserApi";
 
 function SignIn() {
+  //  const { data, isLoading } = useGetUserQuery();
   const name = useRef();
   const pass = useRef();
   const remember = useRef();
@@ -69,7 +71,6 @@ function SignIn() {
         setStorage(result.body.token);
       }
       dispatch(userSlice.actions.setToken(result.body.token));
-      dispatch(userSlice.actions.setEmail(postData.email));
       getProfile(result);
     }
   }
@@ -86,6 +87,7 @@ function SignIn() {
     let userResult = await post.json();
     dispatch(userSlice.actions.setUser(userResult.body.userName));
     dispatch(userSlice.actions.setId(userResult.body.id));
+    dispatch(userSlice.actions.setEmail(userResult.body.email));
     dispatch(userSlice.actions.setFirstName(userResult.body.firstName));
     dispatch(userSlice.actions.setLastName(userResult.body.lastName));
     navigate("/User/" + userResult.body.id);

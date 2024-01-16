@@ -76,7 +76,7 @@ function User() {
                   type="text"
                   id="username"
                 />
-              </div>{" "}
+              </div>
               <br></br>
               <div className="edit">
                 <p className="text">First name : </p>
@@ -87,7 +87,7 @@ function User() {
                   type="text"
                   id="username"
                 />
-              </div>{" "}
+              </div>
               <br></br>
               <div className="edit">
                 <p className="text">Last name : </p>
@@ -98,7 +98,7 @@ function User() {
                   type="text"
                   id="username"
                 />
-              </div>{" "}
+              </div>
               <br></br>
               <button
                 className="edit-button nameButton"

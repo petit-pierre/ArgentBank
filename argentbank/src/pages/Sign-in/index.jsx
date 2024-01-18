@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
-import { userSlice } from "../../userSlice";
+import { userSlice } from "../../Slices/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setTokenThunk, setProfilThunk } from "../../thunkActionsCreator";
 //import { useGetTokenMutation } from "../../components/UserApi";
 
 function SignIn() {
@@ -39,22 +40,22 @@ function SignIn() {
   const submit = async (e) => {
     e.preventDefault();
     const emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
-    const postData = {
-      email: name.current.value,
-      password: pass.current.value,
-    };
+    const email = name.current.value;
+    const password = pass.current.value;
     if (emailRegExp.test(name.current.value) && pass.current.value !== "") {
-      post(postData);
+      const setTokenResult = dispatch(setTokenThunk(email, password, remember));
+      setError(!setTokenResult);
+      if (setTokenResult) {
+        const setProfilResult = dispatch(setProfilThunk(setTokenResult));
+        console.log(setProfilResult);
+        navigate("/User/" + setProfilResult.id);
+      }
     } else {
       setError(true);
     }
   };
 
-  function setStorage(token) {
-    localStorage.setItem("persistantState", token);
-  }
-
-  async function post(postData) {
+  /*  async function post(postData) {
     const post = await fetch("http://localhost:3001/api/V1/user/login", {
       method: "POST",
       headers: {
@@ -92,7 +93,7 @@ function SignIn() {
     dispatch(userSlice.actions.setFirstName(userResult.body.firstName));
     dispatch(userSlice.actions.setLastName(userResult.body.lastName));
     navigate("/User/" + userResult.body.id);
-  }
+  }*/
 
   return (
     <main className="main bg-dark">

@@ -9,8 +9,8 @@ function Home() {
   //const token = useSelector((state) => state.user.token);
   //const data = useGetUserQuery(token);
   //console.log(data.data.body);
-  const data = useSelector(forApi);
-  console.log(data);
+  //const data = useSelector(forApi);
+  //console.log(data);
 
   return (
     <main>

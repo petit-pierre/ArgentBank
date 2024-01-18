@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { userSlice } from "../../userSlice";
+import { userSlice } from "../../Slices/userSlice";
 import "./user.css";
 
 function User() {

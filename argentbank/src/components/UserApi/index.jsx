@@ -8,7 +8,6 @@ export const api = createApi({
       query: (token) => ({
         url: `api/V1/user/profile`,
         method: `POST`,
-        //body: "",
         headers: {
           Accept: "application/json",
           Authorization: "Bearer " + token,
@@ -18,13 +17,12 @@ export const api = createApi({
     }),
 
     getToken: builder.mutation({
-      query: (token) => ({
-        url: `api/V1/user/profile`,
-        methode: "POST",
-        //body: "",
+      query: (postData) => ({
+        url: `api/V1/user/login`,
+        method: "POST",
+        body: JSON.stringify(postData),
         headers: {
           Accept: "application/json",
-          Authorization: "Bearer " + token,
           "Content-Type": "application/json;charset=utf-8",
         },
       }),

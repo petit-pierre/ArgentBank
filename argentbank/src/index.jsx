@@ -11,16 +11,19 @@ import Error404 from "./pages/404";
 import Footer from "./components/Footer";
 import "./main.css";
 import { userSlice } from "./userSlice";
+import { apiSlice } from "./components/UserApi/apiSlice";
 import reportWebVitals from "./reportWebVitals";
 import { api } from "./components/UserApi";
+//import thunk from "redux-thunk";
 
 const store = configureStore({
   reducer: combineReducers({
     user: userSlice.reducer,
+    apiCall: apiSlice.reducer,
     [api.reducerPath]: api.reducer,
   }),
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware),
+    getDefaultMiddleware().concat(api.middleware), //.concat(thunk),
   devTools: true,
 });
 

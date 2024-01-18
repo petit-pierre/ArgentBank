@@ -10,7 +10,7 @@ schemes:
   - http
 paths:
   /user/login:
-    post:
+    get:
       tags:
         - User Module
       summary: Login
@@ -33,8 +33,84 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
+  /user/Account:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: Monthly account transactions
+      description: API for getting transactions
+      parameters:
+        - in: body
+          name: body
+          description: Login Payload
+          required: true
+          schema:
+            $ref: "#/definitions/Account"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully get the data
+          schema:
+            $ref: "#/definitions/AccountResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/Transaction:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: Details for one transaction
+      description: API for getting details for one transaction
+      parameters:
+        - in: body
+          name: body
+          description: Login Payload
+          required: true
+          schema:
+            $ref: "#/definitions/Transaction"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully get the data
+          schema:
+            $ref: "#/definitions/TransactionResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/note:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions
+      summary: modify one note
+      description: API for modifying one note
+      parameters:
+        - in: body
+          name: body
+          description: Login Payload
+          required: true
+          schema:
+            $ref: "#/definitions/EditNote"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully updated the note
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
   /user/signup:
-    post:
+    get:
       tags:
         - User Module
       summary: Signup
@@ -58,7 +134,7 @@ paths:
         "500":
           description: Internal Server Error
   /user/profile:
-    post:
+    get:
       security:
         - Bearer: []
       tags:
@@ -71,7 +147,7 @@ paths:
         "200":
           description: User profile retrieved successully
           schema:
-            $ref: "#/definitions/ApiResponse"
+            $ref: "#/definitions/ProfilResponse"
         "400":
           description: Invalid Fields
         "500":
@@ -107,6 +183,61 @@ securityDefinitions:
     name: Authorization
     in: header
 definitions:
+  Transaction:
+    properties:
+      transaction id:
+        type: string
+        description: transaction id
+  TransactionResponse:
+    properties:
+      transaction type:
+        type: string
+        description: transaction type
+      category:
+        type: string
+        description: category
+      note:
+        type: string
+        description: note
+  EditNote:
+    properties:
+      transaction id:
+        type: string
+        description: transaction id
+      note:
+        type: string
+        description: note
+  Account:
+    properties:
+      id:
+        type: string
+        description: user id
+  AccountResponse:
+    properties:
+      account id:
+        type: string
+        description: user id
+      account name:
+        type: string
+        description: account name
+      balance:
+        type: string
+        description: balance
+      body:
+        type: object
+        properties:
+          transaction id:
+            type: string
+            description: transaction id
+          date:
+            type: string
+            description: date
+          description:
+            type: string
+            description: description
+          amount:
+            type: string
+            description: amount
   User:
     properties:
       email:
@@ -145,6 +276,26 @@ definitions:
           id:
             type: string
           email:
+            type: string
+  ProfilResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+          usename:
+            type: string
+          first name:
+            type: string
+          last name:
             type: string
   LoginResponse:
     type: object

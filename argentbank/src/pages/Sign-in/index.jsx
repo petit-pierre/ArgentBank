@@ -9,8 +9,8 @@ import { store } from "../../index";
 function SignIn() {
   //  const { data, isLoading } = useGetUserQuery();
   //const data = useGetTokenMutation();
-  const token = useSelector((state) => state.user.token);
-  const id = useSelector((state) => state.user.id);
+  //const token = useSelector((state) => state.user.token);
+  //const id = useSelector((state) => state.user.id);
   const name = useRef();
   const pass = useRef();
   const remember = useRef();
@@ -40,7 +40,7 @@ function SignIn() {
     }
   };
 
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
     const emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
     const email = name.current.value;
@@ -52,11 +52,30 @@ function SignIn() {
       );
       setError(!setTokenResult);
       if (setTokenResult) {
-        console.log(token);
-        const setProfilResult = dispatch(setProfilThunk(token));
-        await id;
-        console.log(id);
-        navigate("/User/" + id);
+        async function waitingTokenValue() {
+          const token = {
+            then: function (resolve, reject) {
+              resolve(setTokenResult);
+            },
+          };
+          const setProfilResult = dispatch(setProfilThunk(await token));
+          async function waitingIdValue() {
+            const id = {
+              then: function (resolve, reject) {
+                resolve(setProfilResult);
+              },
+            };
+            const adresse = await id;
+            navigate("/User/" + adresse);
+          }
+          waitingIdValue();
+        }
+        waitingTokenValue();
+
+        //if (token !== null) {
+        //console.log(setTokenResult);
+        //const setProfilResult = dispatch(setProfilThunk(setTokenResult));
+        //navigate("/User/" + id);
       }
     } else {
       setError(true);

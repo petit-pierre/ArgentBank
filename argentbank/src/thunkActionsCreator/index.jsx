@@ -13,12 +13,17 @@ export const setTokenThunk =
     });
     if (response.ok) {
       const result = await response.json();
+      /*const test = {
+        then: function (resolve, reject) {
+          resolve(result.body.token);
+        },
+      };
+      console.log(await test);*/
       dispatch(userSlice.actions.setToken(result.body.token));
-      console.log(rememberChecked);
       if (rememberChecked === true) {
         setStorage(result.body.token);
       }
-      return true;
+      return result.body.token;
     }
     return false;
   };
@@ -39,7 +44,7 @@ export const setProfilThunk = (token) => async (dispatch, getState) => {
     dispatch(userSlice.actions.setEmail(result.body.email));
     dispatch(userSlice.actions.setFirstName(result.body.firstName));
     dispatch(userSlice.actions.setLastName(result.body.lastName));
-    return true;
+    return result.body.id;
   }
   return false;
 };

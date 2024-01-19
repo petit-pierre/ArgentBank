@@ -1,13 +1,16 @@
 import { useRef, useState } from "react";
-import { userSlice } from "../../Slices/userSlice";
-import { useDispatch } from "react-redux";
+//import { userSlice } from "../../Slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setTokenThunk, setProfilThunk } from "../../thunkActionsCreator";
 //import { useGetTokenMutation } from "../../components/UserApi";
+import { store } from "../../index";
 
 function SignIn() {
   //  const { data, isLoading } = useGetUserQuery();
   //const data = useGetTokenMutation();
+  const token = useSelector((state) => state.user.token);
+  const id = useSelector((state) => state.user.id);
   const name = useRef();
   const pass = useRef();
   const remember = useRef();
@@ -42,13 +45,18 @@ function SignIn() {
     const emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
     const email = name.current.value;
     const password = pass.current.value;
+    const rememberChecked = remember.current.checked;
     if (emailRegExp.test(name.current.value) && pass.current.value !== "") {
-      const setTokenResult = dispatch(setTokenThunk(email, password, remember));
+      const setTokenResult = dispatch(
+        setTokenThunk(email, password, rememberChecked)
+      );
       setError(!setTokenResult);
       if (setTokenResult) {
-        const setProfilResult = dispatch(setProfilThunk(setTokenResult));
-        console.log(setProfilResult);
-        navigate("/User/" + setProfilResult.id);
+        console.log(token);
+        const setProfilResult = dispatch(setProfilThunk(token));
+        await id;
+        console.log(id);
+        navigate("/User/" + id);
       }
     } else {
       setError(true);

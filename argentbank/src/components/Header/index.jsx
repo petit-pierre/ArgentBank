@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { userSlice } from "../../Slices/userSlice";
+import { setProfilThunk } from "../../thunkActionsCreator";
 
 function Header() {
   const dispatch = useDispatch();
@@ -19,13 +20,12 @@ function Header() {
     dispatch(userSlice.actions.setFirstName(null));
     dispatch(userSlice.actions.setLastName(null));
   };
-  const serialisedState = localStorage.getItem("persistantState");
+  /*const serialisedState = localStorage.getItem("persistantState");
   if (serialisedState !== null) {
     dispatch(userSlice.actions.setToken(serialisedState));
-    getProfile(serialisedState);
-  }
-
-  async function getProfile(serialisedState) {
+    const setProfilResult = dispatch(setProfilThunk(token));
+  }*/
+  /*async function getProfile(serialisedState) {
     const post = await fetch("http://localhost:3001/api/V1/user/profile", {
       method: "POST",
       headers: {
@@ -40,7 +40,7 @@ function Header() {
     dispatch(userSlice.actions.setEmail(userResult.body.email));
     dispatch(userSlice.actions.setFirstName(userResult.body.firstName));
     dispatch(userSlice.actions.setLastName(userResult.body.lastName));
-  }
+  }*/
 
   return (
     <nav className="main-nav">

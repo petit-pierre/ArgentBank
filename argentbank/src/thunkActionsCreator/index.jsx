@@ -2,7 +2,7 @@ import { userSlice } from "../Slices/userSlice";
 import { setStorage } from "../utils/localStorage";
 
 export const setTokenThunk =
-  (email, password, remember) => async (dispatch, getState) => {
+  (email, password, rememberChecked) => async (dispatch, getState) => {
     const response = await fetch("http://localhost:3001/api/V1/user/login", {
       method: "POST",
       headers: {
@@ -14,16 +14,17 @@ export const setTokenThunk =
     if (response.ok) {
       const result = await response.json();
       dispatch(userSlice.actions.setToken(result.body.token));
-      if (remember) {
+      console.log(rememberChecked);
+      if (rememberChecked === true) {
         setStorage(result.body.token);
       }
-      return result.body.token;
+      return true;
     }
     return false;
   };
 
 export const setProfilThunk = (token) => async (dispatch, getState) => {
-  const response = await fetch("http://localhost:3001/api/V1/user/login", {
+  const response = await fetch("http://localhost:3001/api/V1/user/profile", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -38,8 +39,7 @@ export const setProfilThunk = (token) => async (dispatch, getState) => {
     dispatch(userSlice.actions.setEmail(result.body.email));
     dispatch(userSlice.actions.setFirstName(result.body.firstName));
     dispatch(userSlice.actions.setLastName(result.body.lastName));
-    console.log(result.body.id);
-    return result.body.id;
+    return true;
   }
   return false;
 };

@@ -20,11 +20,11 @@ function Header() {
     dispatch(userSlice.actions.setFirstName(null));
     dispatch(userSlice.actions.setLastName(null));
   };
-  /*const serialisedState = localStorage.getItem("persistantState");
+  const serialisedState = localStorage.getItem("persistantState");
   if (serialisedState !== null) {
     dispatch(userSlice.actions.setToken(serialisedState));
     const setProfilResult = dispatch(setProfilThunk(token));
-  }*/
+  }
   /*async function getProfile(serialisedState) {
     const post = await fetch("http://localhost:3001/api/V1/user/profile", {
       method: "POST",

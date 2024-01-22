@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { setTokenThunk, setProfilThunk } from "../../thunkActionsCreator";
 //import { useGetTokenMutation } from "../../components/UserApi";
 import { store } from "../../index";
+import { isFulfilled } from "@reduxjs/toolkit";
 
 function SignIn() {
   //  const { data, isLoading } = useGetUserQuery();
@@ -20,6 +21,7 @@ function SignIn() {
   const navigate = useNavigate();
   const [inputNameValue, setInputNameValue] = useState("");
   const [inputPassValue, setInputPassValue] = useState("");
+  const token = useSelector((state) => state.user.token);
 
   const formNameError = (e) => {
     setInputNameValue(e.target.value);
@@ -50,77 +52,20 @@ function SignIn() {
       const setTokenResult = dispatch(
         setTokenThunk(email, password, rememberChecked)
       );
-      setError(!setTokenResult);
-      if (setTokenResult) {
-        async function waitingTokenValue() {
-          const token = {
-            then: function (resolve, reject) {
-              resolve(setTokenResult);
-            },
-          };
-          const setProfilResult = dispatch(setProfilThunk(await token));
-          async function waitingIdValue() {
-            const id = {
-              then: function (resolve, reject) {
-                resolve(setProfilResult);
-              },
-            };
-            const adresse = await id;
-            navigate("/User/" + adresse);
-          }
-          waitingIdValue();
-        }
-        waitingTokenValue();
+      //setSendingError(!setTokenResult);
+      const waitingToken = new Promise((resolve, reject) => {
+        resolve(setTokenResult);
+      });
 
-        //if (token !== null) {
-        //console.log(setTokenResult);
-        //const setProfilResult = dispatch(setProfilThunk(setTokenResult));
-        //navigate("/User/" + id);
-      }
-    } else {
-      setError(true);
+      waitingToken.then((setTokenResult) => {
+        if (setTokenResult) {
+          waitingToken.then(() => navigate("/User"));
+        } else {
+          setSendingError(true);
+        }
+      });
     }
   };
-
-  /*  async function post(postData) {
-    const post = await fetch("http://localhost:3001/api/V1/user/login", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(postData),
-    });
-    let result = await post.json();
-
-    if (result.message !== "User successfully logged in") {
-      setSendingError(true);
-    } else {
-      if (remember.current.checked === true) {
-        setStorage(result.body.token);
-      }
-      dispatch(userSlice.actions.setToken(result.body.token));
-      getProfile(result);
-    }
-  }
-
-  async function getProfile(result) {
-    const post = await fetch("http://localhost:3001/api/V1/user/profile", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        Authorization: "Bearer " + result.body.token,
-        "Content-Type": "application/json;charset=utf-8",
-      },
-    });
-    let userResult = await post.json();
-    dispatch(userSlice.actions.setUser(userResult.body.userName));
-    dispatch(userSlice.actions.setId(userResult.body.id));
-    dispatch(userSlice.actions.setEmail(userResult.body.email));
-    dispatch(userSlice.actions.setFirstName(userResult.body.firstName));
-    dispatch(userSlice.actions.setLastName(userResult.body.lastName));
-    navigate("/User/" + userResult.body.id);
-  }*/
 
   return (
     <main className="main bg-dark">

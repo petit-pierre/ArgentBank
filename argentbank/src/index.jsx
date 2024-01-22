@@ -35,7 +35,7 @@ root.render(
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/User/:userId" element={<User />} />
+          <Route path="/User" element={<User />} />
           <Route path="/Sign-in" element={<SignIn />} />
           <Route path="*" element={<Error404 />} />
         </Routes>

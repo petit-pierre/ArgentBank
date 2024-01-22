@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { userSlice } from "../../Slices/userSlice";
 import "./user.css";
+import { setProfilThunk } from "../../thunkActionsCreator";
 
 function User() {
   const dispatch = useDispatch();
@@ -13,6 +14,8 @@ function User() {
   const lastName = useSelector((state) => state.user.lastName);
   const [edit, setEdit] = useState(false);
   const userName = useRef();
+
+  const setProfilResult = dispatch(setProfilThunk(token));
 
   if (token === null) {
     return <Navigate to="../404/" replace={true} />;

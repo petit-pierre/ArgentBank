@@ -9,8 +9,8 @@ function Header() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
-  const id = useSelector((state) => state.user.id);
-  const userAdress = "User/" + id;
+  //const id = useSelector((state) => state.user.id);
+  const userAdress = "User/";
   const signOut = () => {
     localStorage.clear();
     dispatch(userSlice.actions.setToken(null));

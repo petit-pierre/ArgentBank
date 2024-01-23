@@ -30,6 +30,7 @@ function SignIn() {
       setError(false);
     } else {
       setError(true);
+      setSendingError(false);
     }
   };
 
@@ -39,6 +40,7 @@ function SignIn() {
       setError(false);
     } else {
       setError(true);
+      setSendingError(false);
     }
   };
 

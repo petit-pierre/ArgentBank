@@ -2,9 +2,9 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { userSlice } from "../../Slices/userSlice";
+//import { userSlice } from "../../Slices/userSlice";
 import "./user.css";
-import { setProfilThunk } from "../../thunkActionsCreator";
+import { setProfilThunk, setUsernameThunk } from "../../thunkActionsCreator";
 
 function User() {
   const dispatch = useDispatch();
@@ -27,13 +27,16 @@ function User() {
 
   function saveName(evt) {
     evt.preventDefault();
+    const finalUserName = userName.current.value + " ";
     if (userName.current.value !== "") {
-      const postData = { userName: userName.current.value };
-      putName(postData);
+      const setUsernameResult = dispatch(
+        setUsernameThunk(finalUserName, token)
+      );
+      userChange();
     }
   }
 
-  async function putName(postData) {
+  /*async function putName(postData) {
     await fetch("http://localhost:3001/api/V1/user/profile", {
       method: "PUT",
       headers: {
@@ -45,7 +48,7 @@ function User() {
     });
     dispatch(userSlice.actions.setUser(postData.userName));
     userChange();
-  }
+  }*/
 
   return (
     <main className="main bg-dark">

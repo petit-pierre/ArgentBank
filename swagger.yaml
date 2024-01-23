@@ -197,7 +197,7 @@ definitions:
       amount:
         type: number
         description: amount
-      transaction type:
+      transaction_type:
         type: string
         description: transaction type
       category:
@@ -216,30 +216,31 @@ definitions:
         description: note
   AccountResponse:
     properties:
-      account id:
+      account_id:
         type: string
         description: user id
-      account name:
+      account_name:
         type: string
         description: account name
       balance:
         type: string
         description: balance
       body:
-        type: object
-        properties:
-          transaction id:
-            type: string
-            description: transaction id
-          date:
-            type: string
-            description: date
-          description:
-            type: string
-            description: description
-          amount:
-            type: string
-            description: amount
+        type: array
+        items: 
+          properties: 
+            transaction_id:
+              type: string
+              description: transaction id
+            date:
+              type: string
+              description: date
+            description:
+              type: string
+              description: description
+            amount:
+              type: string
+              description: amount 
   User:
     properties:
       email:

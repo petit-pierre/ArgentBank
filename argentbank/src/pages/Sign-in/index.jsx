@@ -1,17 +1,9 @@
 import { useRef, useState } from "react";
-//import { userSlice } from "../../Slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setTokenThunk, setProfilThunk } from "../../thunkActionsCreator";
-//import { useGetTokenMutation } from "../../components/UserApi";
-import { store } from "../../index";
-import { isFulfilled } from "@reduxjs/toolkit";
 
 function SignIn() {
-  //  const { data, isLoading } = useGetUserQuery();
-  //const data = useGetTokenMutation();
-  //const token = useSelector((state) => state.user.token);
-  //const id = useSelector((state) => state.user.id);
   const name = useRef();
   const pass = useRef();
   const remember = useRef();
@@ -21,7 +13,6 @@ function SignIn() {
   const navigate = useNavigate();
   const [inputNameValue, setInputNameValue] = useState("");
   const [inputPassValue, setInputPassValue] = useState("");
-  const token = useSelector((state) => state.user.token);
 
   const formNameError = (e) => {
     setInputNameValue(e.target.value);
@@ -54,7 +45,6 @@ function SignIn() {
       const setTokenResult = dispatch(
         setTokenThunk(email, password, rememberChecked)
       );
-      //setSendingError(!setTokenResult);
       const waitingToken = new Promise((resolve, reject) => {
         resolve(setTokenResult);
       });

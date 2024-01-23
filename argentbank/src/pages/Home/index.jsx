@@ -1,17 +1,8 @@
 import iconChat from "../../assets/icon-chat.png";
 import iconMoney from "../../assets/icon-money.png";
 import iconSecurity from "../../assets/icon-security.png";
-//import { useGetUserQuery } from "../../components/UserApi";
-//import { useSelector } from "react-redux";
-//import { forApi } from "../../components/UserApi/apiSlice";
 
 function Home() {
-  //const token = useSelector((state) => state.user.token);
-  //const data = useGetUserQuery(token);
-  //console.log(data.data.body);
-  //const data = useSelector(forApi);
-  //console.log(data);
-
   return (
     <main>
       <div className="hero">

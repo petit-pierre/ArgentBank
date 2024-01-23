@@ -35,20 +35,6 @@ function User() {
     }
   }
 
-  /*async function putName(postData) {
-    await fetch("http://localhost:3001/api/V1/user/profile", {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        Authorization: "Bearer " + token,
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(postData),
-    });
-    dispatch(userSlice.actions.setUser(postData.userName));
-    userChange();
-  }*/
-
   return (
     <main className="main bg-dark">
       <div className="header">

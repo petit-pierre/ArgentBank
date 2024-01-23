@@ -33,7 +33,7 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
-  /user/Account:
+  /user/{accountId}/transactions:
     get:
       security:
         - Bearer: []
@@ -42,12 +42,11 @@ paths:
       summary: Monthly account transactions
       description: API for getting transactions
       parameters:
-        - in: body
-          name: body
-          description: Login Payload
+        - in: path
+          name: accountId
+          description: ID of account
           required: true
-          schema:
-            $ref: "#/definitions/Account"
+          type: string
       produces:
         - application/json
       responses:
@@ -59,7 +58,7 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
-  /user/Transaction:
+  /user/{transactionId}/Transaction:
     get:
       security:
         - Bearer: []
@@ -68,12 +67,11 @@ paths:
       summary: Details for one transaction
       description: API for getting details for one transaction
       parameters:
-        - in: body
-          name: body
-          description: Login Payload
+        - in: path
+          name: transactionId
+          description: ID of one transaction
           required: true
-          schema:
-            $ref: "#/definitions/Transaction"
+          type: string
       produces:
         - application/json
       responses:
@@ -85,7 +83,7 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
-  /user/note:
+  /user/{transactionId}/transaction:
     put:
       security:
         - Bearer: []
@@ -94,6 +92,11 @@ paths:
       summary: modify one note
       description: API for modifying one note
       parameters:
+        - in: path
+          name: transactionId
+          description: ID of one transaction
+          required: true
+          type: string
         - in: body
           name: body
           description: Login Payload
@@ -183,13 +186,17 @@ securityDefinitions:
     name: Authorization
     in: header
 definitions:
-  Transaction:
-    properties:
-      transaction id:
-        type: string
-        description: transaction id
   TransactionResponse:
     properties:
+      date:
+        type: string
+        description: date of the transaction
+      description:
+        type: string
+        description: description of the transaction
+      amount:
+        type: number
+        description: amount
       transaction type:
         type: string
         description: transaction type
@@ -201,17 +208,12 @@ definitions:
         description: note
   EditNote:
     properties:
-      transaction id:
+      category:
         type: string
         description: transaction id
       note:
         type: string
         description: note
-  Account:
-    properties:
-      id:
-        type: string
-        description: user id
   AccountResponse:
     properties:
       account id:

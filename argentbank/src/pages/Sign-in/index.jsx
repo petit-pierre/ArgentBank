@@ -35,17 +35,24 @@ function SignIn() {
     }
   };
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     const emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
     const email = name.current.value;
     const password = pass.current.value;
     const rememberChecked = remember.current.checked;
     if (emailRegExp.test(name.current.value) && pass.current.value !== "") {
-      const setTokenResult = dispatch(
+      const setTokenResult = await dispatch(
         setTokenThunk(email, password, rememberChecked)
       );
-      const waitingToken = new Promise((resolve, reject) => {
+
+      if (setTokenResult) {
+        navigate("/User");
+      } else {
+        setSendingError(true);
+      }
+
+      /*const waitingToken = new Promise((resolve, reject) => {
         resolve(setTokenResult);
       });
 
@@ -55,7 +62,7 @@ function SignIn() {
         } else {
           setSendingError(true);
         }
-      });
+      });*/
     }
   };
 

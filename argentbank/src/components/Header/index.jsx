@@ -19,11 +19,11 @@ function Header() {
     dispatch(userSlice.actions.setFirstName(null));
     dispatch(userSlice.actions.setLastName(null));
   };
-  const serialisedState = localStorage.getItem("persistantState");
+  /* const serialisedState = localStorage.getItem("persistantState");
   if (serialisedState !== null) {
     dispatch(userSlice.actions.setToken(serialisedState));
     const setProfilResult = dispatch(setProfilThunk(token));
-  }
+  }*/
 
   return (
     <nav className="main-nav">

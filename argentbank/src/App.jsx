@@ -8,20 +8,20 @@ import SignIn from "./pages/Sign-in";
 import User from "./pages/User";
 import Error404 from "./pages/404";
 import Footer from "./components/Footer";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setProfilThunk } from "./thunkActionsCreator";
 
 function App() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
-  useEffect(() => {
+  const lookAtLocalStorage = async () => {
     const serialisedState = localStorage.getItem("persistantState");
     if (serialisedState !== null) {
-      dispatch(userSlice.actions.setToken(serialisedState));
+      await dispatch(userSlice.actions.setToken(serialisedState));
       const setProfilResult = dispatch(setProfilThunk(token));
     }
-  });
+  };
+  lookAtLocalStorage();
   return (
     <Router>
       <Header />

@@ -55,7 +55,6 @@ export const setUsernameThunk =
       body: JSON.stringify({ userName: finalUserName }),
     });
     if (response.ok) {
-      //const result = await response.json();
       dispatch(userSlice.actions.setUser(finalUserName));
       return true;
     }

@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { userSlice } from "../../Slices/userSlice";
-import { setProfilThunk } from "../../thunkActionsCreator";
 
 function Header() {
   const dispatch = useDispatch();
@@ -19,11 +18,6 @@ function Header() {
     dispatch(userSlice.actions.setFirstName(null));
     dispatch(userSlice.actions.setLastName(null));
   };
-  /* const serialisedState = localStorage.getItem("persistantState");
-  if (serialisedState !== null) {
-    dispatch(userSlice.actions.setToken(serialisedState));
-    const setProfilResult = dispatch(setProfilThunk(token));
-  }*/
 
   return (
     <nav className="main-nav">

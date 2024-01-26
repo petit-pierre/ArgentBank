@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import "./main.css";
 import { userSlice } from "./Slices/userSlice";
-import reportWebVitals from "./reportWebVitals";
 import { thunk } from "redux-thunk";
+
+import "./main.css";
+import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 
 const store = configureStore({

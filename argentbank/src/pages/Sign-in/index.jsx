@@ -51,18 +51,6 @@ function SignIn() {
       } else {
         setSendingError(true);
       }
-
-      /*const waitingToken = new Promise((resolve, reject) => {
-        resolve(setTokenResult);
-      });
-
-      waitingToken.then((setTokenResult) => {
-        if (setTokenResult) {
-          waitingToken.then(() => navigate("/User"));
-        } else {
-          setSendingError(true);
-        }
-      });*/
     }
   };
 

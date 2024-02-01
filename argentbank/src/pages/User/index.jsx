@@ -4,6 +4,8 @@ import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import "./user.css";
 import { setProfilThunk, setUsernameThunk } from "../../thunkActionsCreator";
+import Account from "../../components/Account";
+import dataAccounts from "../../data/userAccounts.json";
 
 function User() {
   const dispatch = useDispatch();
@@ -21,12 +23,12 @@ function User() {
   }
 
   function userChange() {
-    edit === true ? setEdit(false) : setEdit(true);
+    setEdit(!edit);
   }
 
   function saveName(evt) {
     evt.preventDefault();
-    const finalUserName = userName.current.value + " ";
+    const finalUserName = userName.current.value;
     if (userName.current.value !== "") {
       const setUsernameResult = dispatch(
         setUsernameThunk(finalUserName, token)
@@ -45,7 +47,7 @@ function User() {
             <h1>
               Welcome back
               <br />
-              {user}!
+              {user} !
             </h1>
             <button className="edit-button" onClick={userChange}>
               Edit Name
@@ -107,36 +109,9 @@ function User() {
         )}
       </div>
       <h2 className="sr-only">Accounts</h2>
-      <section className="account">
-        <div className="account-content-wrapper">
-          <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-          <p className="account-amount">$2,082.79</p>
-          <p className="account-amount-description">Available Balance</p>
-        </div>
-        <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
-        </div>
-      </section>
-      <section className="account">
-        <div className="account-content-wrapper">
-          <h3 className="account-title">Argent Bank Savings (x6712)</h3>
-          <p className="account-amount">$10,928.42</p>
-          <p className="account-amount-description">Available Balance</p>
-        </div>
-        <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
-        </div>
-      </section>
-      <section className="account">
-        <div className="account-content-wrapper">
-          <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
-          <p className="account-amount">$184.30</p>
-          <p className="account-amount-description">Current Balance</p>
-        </div>
-        <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
-        </div>
-      </section>
+      {dataAccounts.map((account) => (
+        <Account accountInfo={account} />
+      ))}
     </main>
   );
 }

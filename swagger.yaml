@@ -83,13 +83,45 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
+  /note/{transactionId}/transaction:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Note
+      summary: add one note
+      description: API for add one note
+      parameters:
+        - in: path
+          name: transactionId
+          description: ID of one transaction
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Post a note
+          required: true
+          schema:
+            $ref: "#/definitions/Note"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully posted the note
+          schema:
+            $ref: "#/definitions/TransactionResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /category/{transactionId}/transaction:
     put:
       security:
         - Bearer: []
       tags:
-        - Transactions
-      summary: modify one note
-      description: API for modifying one note
+        - Category
+      summary: modify one category
+      description: API for modifying one category
       parameters:
         - in: path
           name: transactionId
@@ -101,12 +133,67 @@ paths:
           description: Login Payload
           required: true
           schema:
-            $ref: "#/definitions/EditNote"
+            $ref: "#/definitions/EditCategory"
       produces:
         - application/json
       responses:
         "200":
-          description: Successfully updated the note
+          description: Successfully updated the category
+          schema:
+            $ref: "#/definitions/TransactionResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /note/{noteId}:
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Note
+      summary: delete one note
+      description: API for delete one note
+      parameters:
+        - in: path
+          name: noteId
+          description: ID of one note
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully deletted the note
+          schema:
+            $ref: "#/definitions/TransactionResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Note
+      summary: Modify one note
+      description: API for Modify one note
+      parameters:
+        - in: path
+          name: noteId
+          description: ID of one note
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Login Payload
+          required: true
+          schema:
+            $ref: "#/definitions/Note"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully modified
           schema:
             $ref: "#/definitions/TransactionResponse"
         "400":
@@ -187,8 +274,24 @@ securityDefinitions:
     name: Authorization
     in: header
 definitions:
+  Note:
+    properties:
+      note:
+        type: string
+        description: one note
+  NoteResponse:
+    properties:
+      id:
+        type: string
+        description: id of the note
+      note:
+        type: string
+        description: one note
   TransactionResponse:
     properties:
+      id:
+        type: string
+        description: id of the transaction
       date:
         type: string
         description: date of the transaction
@@ -204,17 +307,15 @@ definitions:
       category:
         type: string
         description: category
-      note:
-        type: string
-        description: note
-  EditNote:
+      notes:
+        type: array
+        items: 
+          $ref: "#/definitions/NoteResponse"
+  EditCategory:
     properties:
       category:
         type: string
         description: transaction id
-      note:
-        type: string
-        description: note
   AccountResponse:
     properties:
       id:

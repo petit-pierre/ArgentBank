@@ -1,0 +1,15 @@
+[{
+    "id":"001",
+    "title":"Argent Bank Checking (x8349)",
+    "balance":2082.79
+},
+{
+    "id":"002",
+    "title":"Argent Bank Savings (x6712)",
+    "balance":10928.42
+},
+{
+    "id":"003",
+    "title":"Argent Bank Credit Card (x8349)",
+    "balance":184.30
+}]

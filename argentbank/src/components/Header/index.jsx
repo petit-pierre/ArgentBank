@@ -31,24 +31,26 @@ function Header() {
       </NavLink>
       <div className="navHeader">
         {user != null ? (
-          <NavLink to={userAdress} className="main-nav-item">
-            <i className="fa fa-user-circle faHeader"></i>
+          <div>
+            <NavLink to={userAdress} className="main-nav-item connected">
+              <i className="fa fa-user-circle faHeader"></i>
 
-            {user}
-          </NavLink>
+              {user}
+            </NavLink>
+            <NavLink
+              to="/"
+              className="main-nav-item connected"
+              onClick={signOut}
+            >
+              <i className="fa fa-sign-out"></i>
+              Sign Out
+            </NavLink>
+          </div>
         ) : (
           <NavLink to="/Sign-in" className="main-nav-item">
             <i className="fa fa-user-circle faHeader"></i>
             Sign in
           </NavLink>
-        )}
-        {token != null ? (
-          <NavLink to="/" className="main-nav-item" onClick={signOut}>
-            <i className="fa fa-sign-out"></i>
-            Sign Out
-          </NavLink>
-        ) : (
-          <p></p>
         )}
       </div>
     </nav>

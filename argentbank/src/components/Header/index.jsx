@@ -29,7 +29,7 @@ function Header() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
-      <div>
+      <div className="navHeader">
         {user != null ? (
           <NavLink to={userAdress} className="main-nav-item">
             <i className="fa fa-user-circle faHeader"></i>
